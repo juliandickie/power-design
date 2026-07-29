@@ -1,0 +1,20 @@
+{
+  "name": "power-design",
+  "version": "0.1.0",
+  "description": "Decks and websites that do not look AI-made. Brand DNA (extracted live from any URL via Firecrawl, or picked from 72+ pre-built brand systems) combined with codified design principles - 20 research-backed rules for slides and 20 for the web, with numeric thresholds.",
+  "author": {
+    "name": "Jack Roberts",
+    "url": "https://github.com/ItsssssJack"
+  },
+  "homepage": "https://power-design.vercel.app",
+  "repository": "https://github.com/juliandickie/power-design",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "slides",
+    "decks",
+    "websites",
+    "brand",
+    "design-principles"
+  ]
+}
