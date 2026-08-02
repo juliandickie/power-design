@@ -62,6 +62,39 @@ Governs every word this skill emits into a deck or a page - headlines, body copy
 
 ---
 
+## Motion (fork addition)
+
+Replaces generic motion guidance. Web rule #15 stays true; this is the fuller governor sitting above it. Decks are static 16:9 frames by default, so in practice this governs Path B.
+
+**Engine.** The house engine is GSAP, with effects briefed by number and name from The Motion Index catalogue. That is not the same as the default output. The default single self-contained file ships CSS transitions, because a no-external-JS file is this skill's output contract and because adding a dependency for an effect CSS already expresses cleanly is a bad trade. Reach for GSAP when the motion genuinely exceeds what CSS can express, or when scaffolding a real multi-file project.
+
+**Never scrollreveal.** GPL-3.0 plus a paid commercial licence, which makes it unusable on closed-source client work however convenient the API looks. This holds whatever the engine.
+
+**One authored focal moment per page, not a reveal on every section.** The focal moment has to come from this brand and this surface. A generic fade-and-rise, a hover lift, a parallax layer or a scroll reveal is not a focal moment, it is a default with the serial numbers filed off. If removing an animation would cost nothing but decoration, it never earned its place.
+
+**Timing.**
+
+| Duration | What it is for |
+|---|---|
+| 100 to 150ms | Immediate feedback - a press, a toggle, a hover colour |
+| 150 to 300ms | Routine state change |
+| 300 to 500ms | Layout shift or an overlay opening |
+| 500 to 800ms | An authored entrance, and only one of them |
+
+Exits run faster than entrances.
+
+**Easing.** `cubic-bezier(0.16, 1, 0.3, 1)` for arrivals. Bounce and elastic are banned by reflex; they read as generated.
+
+**Bans.**
+
+- Never animate a layout-driving property (width, height, top, left, margin). Transform and opacity only.
+- Content stays visible at rest, so a script that fails to run cannot hide the page.
+- Stagger only when a list genuinely arrives as a list, and cap the total delay.
+- `will-change` only for the duration of a known animation.
+- `prefers-reduced-motion` renders everything settled, not merely reduced.
+
+---
+
 # Path A — Slides
 
 ### Q — What's the deck about?
@@ -154,6 +187,7 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - [ ] **#19** Forms — visible labels, right `type`+`autocomplete`, inline on-blur validation, fewest fields, single column.
 - [ ] **#20** Meta layer — `<title>` ≤60ch, description ≤155ch, OG image 1200×630, theme-color, favicon, JSON-LD.
 - [ ] **House style (fork)** No em or en dashes, straight quotes, no colons in headings, locale-correct spelling. Applies to the meta layer too.
+- [ ] **Motion (fork)** One authored focal moment, timing table respected, exits faster than entrances, `cubic-bezier(0.16, 1, 0.3, 1)` on arrivals, no bounce or elastic, content visible at rest, never scrollreveal.
 
 ---
 
