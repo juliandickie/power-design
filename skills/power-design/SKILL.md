@@ -151,18 +151,18 @@ Replaces generic motion guidance. Web rule #15 stays true; this is the fuller go
 
 **One authored focal moment per page, not a reveal on every section.** The focal moment has to come from this brand and this surface. A generic fade-and-rise, a hover lift, a parallax layer or a scroll reveal is not a focal moment, it is a default with the serial numbers filed off. If removing an animation would cost nothing but decoration, it never earned its place.
 
-**Timing.**
+**Timing.** Every band boundary below is an exact step on Material 3's duration ladder, so the curve name gives the vocabulary for intent and the point default gives a value to reach for inside the band. The bands are the rule; the last two columns are guidance.
 
-| Duration | What it is for |
-|---|---|
-| 100 to 150ms | Immediate feedback - a press, a toggle, a hover colour |
-| 150 to 300ms | Routine state change |
-| 300 to 500ms | Layout shift or an overlay opening |
-| 500 to 800ms | An authored entrance, and only one of them |
+| Duration | What it is for | M3 curve | Point default |
+|---|---|---|---|
+| 100 to 150ms | Immediate feedback - a press, a toggle, a hover colour | standard | 150ms (`short3`) |
+| 150 to 300ms | Routine state change | standard | 200ms (`short4`) |
+| 300 to 500ms | Layout shift or an overlay opening | emphasized | 400ms (`medium4`) |
+| 500 to 800ms | An authored entrance, and only one of them | emphasized | 600ms (`long4`) |
 
-Exits run faster than entrances.
+Exits run faster than entrances, on the accelerate variant of whichever curve the entrance used.
 
-**Easing.** `cubic-bezier(0.16, 1, 0.3, 1)` for arrivals. Bounce and elastic are banned by reflex; they read as generated.
+**Easing.** `cubic-bezier(0.16, 1, 0.3, 1)` for arrivals. That is the house curve and it stays. The M3 names above are vocabulary for describing intent, never an instruction to pull Google's bezier values into an output. Bounce and elastic are banned by reflex; they read as generated. The verified easing values and the full 16-step duration ladder are in `references/build-stack.md`.
 
 **Bans.**
 
@@ -231,7 +231,7 @@ Ask three quick things (then go):
 ### Read before emitting any HTML
 1. `principles/web-principles.md` — the 20 web rules. **All 20 are the floor.**
 2. The chosen `brands/<name>/brand-style.md`.
-3. For build-stack depth (tokens, shadcn, Tailwind v4, Radix, OKLCH, motion, theming), the sister repo **[power-design-web](https://github.com/ItsssssJack/power-design-web)** is the reference. Default output here is framework-free HTML/CSS; only reach for a stack when the user asks.
+3. For build-stack depth (tokens and the DTCG format, shadcn, Tailwind v4, Radix, the 12-step scale, canonical systems, the layered stack), **`references/build-stack.md`** (fork addition), distilled from the sister repo [power-design-web](https://github.com/ItsssssJack/power-design-web) so it travels with the plugin. Default output here is framework-free HTML/CSS, so only reach for a stack when the user asks.
 
 ### Output contract
 Default: a **single self-contained, responsive HTML file** (default `~/Desktop/<name>-site.html`) that:
@@ -309,5 +309,6 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - `lib/extract-brand.md` — the Firecrawl brand-extraction recipe (feeds both paths).
 - `brands/<name>/brand-style.md` — pre-built brand systems (72+).
 - `brands/_template.md` — upstream's short blank template. Superseded for new files by **New brand files (fork addition)** above; kept because three existing brands are written to it.
+- `references/build-stack.md` (fork addition), the modern build stack distilled from the sister repo, covering design tokens and the DTCG format, shadcn, Tailwind v4, Radix, the 12-step scale, six canonical systems, and the layered stack. Read it only for a real multi-file project, never for the default single-file output. It defers to `principles/web-principles.md` wherever the two overlap, and carries the table that says so.
 
 When in doubt, **read the principles file for the current medium**. It's the source of truth.
