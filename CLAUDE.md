@@ -27,7 +27,7 @@ Upstream carries no version anywhere (no manifest, no tags), so the plugin versi
 
 ## Delivered customisations (0.2.0, built 2026-08-02 against upstream 26d1492)
 
-All four planned items shipped. Three live in the shipping copy and show in the ledger diff; the brand systems are new files with zero upstream contact.
+All four planned items shipped, plus one follow-on. Four changes live in the shipping copy and show in the ledger diff; the brand systems are new files with zero upstream contact.
 
 - **Pro Marketing client brand systems** as new `brands/<slug>/brand-style.md` entries - `ascot-real-estate` (ported from the ascot-re-2026 DESIGN.md, which stays the source of record) and `idd` (from tokens read off production CSS on 2026-07-13). Library is now 74.
 - **House style guard** in the shipping skill - no em or en dashes in generated copy, straight quotes, no colons in headings, spelling read from a `locale` field in the brand file (`en-AU` for Pro Marketing clients, `en-US` for iDD). Enforced by a line on both pre-emit checklists, not just stated in prose.
@@ -41,6 +41,10 @@ New brand files use the **spec-ordered shape** (Overview, Colors, Typography, La
 This corrects a premise carried in NEXT-SESSION.md and the design-toolchain analysis, which both described the library as a bespoke non-spec nine-section numbered format. A census of the 72 upstream files found three shapes, not one - 42 already follow the canonical DESIGN.md section order exactly, 27 use the nine-section numbered form, and 3 use the short `brands/_template.md` form. The spec-ordered majority is the right neighbour to match.
 
 The token block is a fork improvement with no upstream equivalent. Upstream's restructure out of awesome-design-md left orphaned `{colors.x}` and `{typography.x}` references in files like `brands/apple` with no token block to resolve them. Ours resolve, and the `google-labs-code/design.md` linter can read them.
+
+The shipping skill's **New brand files (fork addition)** section carries the schema, so the Firecrawl extractor writes new brands to this shape rather than to the short template. `lib/extract-brand.md` is upstream's and still points at `brands/_template.md`; it stays pristine and is overridden from the skill rather than edited. The 72 files that arrived with upstream are not being converted.
+
+**Note for the next sync.** That change edits an upstream line rather than only appending, the first in the fork to do so. The ledger currently reads one `<` against 132 `>`, and that single line (the "Save it as `brand-style.md`" sentence in the shared brand step) is the only place a future upstream merge needs a real decision instead of a clean re-append.
 
 ### Next candidates
 
