@@ -15,6 +15,21 @@ Your job: compose **HTML** — a deck or a website — that satisfies the brand 
 
 ---
 
+## Where this skill sits (fork addition)
+
+Read this before Step 0. In this stack the skill is the **deck and brand-extraction specialist**, and that boundary exists because several installed tools cover overlapping design ground. Three design voices arguing on the same page is a worse outcome than any one of them being slightly wrong.
+
+- **This skill** owns presentation decks, and owns brand DNA - extracting it from a live URL, or loading and applying a system from `brands/`. Both are genuine gaps elsewhere in the stack.
+- **frontend-design** owns taste on everyday web pages.
+- **ui-ux-pro-max** owns design knowledge, styles and palettes.
+- **impeccable** owns deterministic enforcement, running its detector rules with no LLM in the loop.
+
+So the routing is: a deck, or a job that starts from a brand system to extract or apply, means proceed. An everyday web page with no brand-extraction step in it means say so and hand off, rather than opening a third opinion on the same markup.
+
+This does not retire Path B. Path B is right when the page genuinely starts from a brand system this skill just extracted or loaded, which is exactly the cold-start case on a new client. It is the wrong door for general page design.
+
+---
+
 ## Step 0 — Deck or website?
 
 Before anything else, establish the medium. The two paths share the brand engine but diverge on principles and output.
@@ -40,9 +55,122 @@ Use the `Firecrawl` MCP server (or `firecrawl_scrape`) with:
 ```
 formats: ["branding", "screenshot", "rawHtml", "links"]
 ```
-The `branding` format returns structured JSON with `colors`, `fonts`, `typography`, `components`, `images.logo`, `personality`. Save it as `brand-style.md` in `brands/<slug>/` using `brands/_template.md` as the schema. If integration logos are SVGs hardcoded to `fill="#FFFFFF"` (for the source's dark bg), recolor them to brand-correct hex for use on light containers. Full recipe: `lib/extract-brand.md`.
+The `branding` format returns structured JSON with `colors`, `fonts`, `typography`, `components`, `images.logo`, `personality`. Save it as `brand-style.md` in `brands/<slug>/` using the schema in **New brand files** below. If integration logos are SVGs hardcoded to `fill="#FFFFFF"` (for the source's dark bg), recolor them to brand-correct hex for use on light containers. Full recipe: `lib/extract-brand.md`.
 
 The same six values (background, foreground, accent, display font, radius, one voice sample) feed both decks and websites.
+
+---
+
+## New brand files (fork addition)
+
+Supersedes the "Convert it into a `brand-style.md` file" step in `lib/extract-brand.md`, which points at `brands/_template.md`. That recipe file is upstream's and is not edited here, so this section is the override. Everything else in the recipe - the scrape call, the white-fill SVG fix, the fast-scan table - still stands.
+
+**Frontmatter.** Identity, then a machine-readable token block:
+
+```yaml
+---
+brand: [Name]
+slug: [slug]
+website: https://[domain]
+source: [where the values came from]
+extracted_via: Firecrawl | editorial
+locale: en-AU | en-US
+colors:
+  primary: "#______"
+  on-primary: "#______"
+  surface: "#______"
+  on-surface: "#______"
+  accent: "#______"
+typography:
+  display:
+    fontFamily: "'[Font]', [fallback]"
+    fontSize: __px
+    fontWeight: ___
+    lineHeight: ___
+  body:
+    fontFamily: "'[Font]', [fallback]"
+    fontSize: __px
+    fontWeight: ___
+    lineHeight: ___
+rounded:
+  default: __px
+spacing:
+  md: __px
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    rounded: "{rounded.default}"
+---
+```
+
+Carry whatever roles the brand actually has; the keys above are the floor, not the ceiling. Prose below the frontmatter references tokens as `{colors.primary}`, `{typography.display}`, `{components.card}`, and **every reference must resolve to a key that exists**.
+
+**Sections, in this order.** The canonical eight first:
+
+Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts
+
+then extensions after them, as the brand needs - Icons, Motion, Responsive Behavior, Iteration Guide, Known Gaps, Reference.
+
+**Rules.**
+
+- Never repeat a section heading. A file with two `## Colors` is rejected outright by the DESIGN.md linter, and one bad generation poisons the whole file.
+- `locale` is required. The house style guard below reads it to pick spelling.
+- State one accent and mean it. If the brand has a second strong colour, give it a role (data, status, decoration) rather than promoting it to a second accent.
+- Where the source genuinely does not reveal a value, say so under Known Gaps rather than inventing a plausible one. A fabricated type ramp is worse than an absent one, because everything downstream treats a brand file as authority.
+
+**Worked examples.** `brands/ascot-real-estate/brand-style.md` and `brands/idd/brand-style.md` are built to this schema and are the reference.
+
+The 72 brand files that arrived with upstream use three older shapes and are not being converted. Match this shape when writing a new file; read the existing ones as they are.
+
+---
+
+## House style guard (fork addition)
+
+Governs every word this skill emits into a deck or a page - headlines, body copy, captions, labels, button text, alt text, meta descriptions, JSON-LD strings. It does not govern the skill's own prose above.
+
+**Punctuation.** Never emit an em dash or an en dash. Use a comma, a parenthesis, a hyphen for a compound term, or two sentences. Straight quotes and straight apostrophes only, never curly. No colons in headings or slide titles; separate segments with " - ". Strip trademark, registered and copyright glyphs, and normalise typographic ligatures to plain ASCII.
+
+**Spelling.** Read it from the `locale` field in the chosen `brands/<name>/brand-style.md`:
+
+- `en-AU` - Australian English. Every Pro Marketing client brand defaults here.
+- `en-US` - US English. iDD content is US English even for AU and NZ readers, the single exception being a course written specifically for an AU or NZ market.
+- No `locale` field - ask once, then hold the answer for the rest of the session.
+
+**Check it on the emitted HTML before saving, not after the client finds it.** These are the violations a reader notices on sight, unlike a spacing error, and a single curly apostrophe pasted in from a source page is enough to fail the pass. The two rulebooks govern the design; this governs the copy inside it.
+
+---
+
+## Motion (fork addition)
+
+Replaces generic motion guidance. Web rule #15 stays true; this is the fuller governor sitting above it. Decks are static 16:9 frames by default, so in practice this governs Path B.
+
+**Engine.** The house engine is GSAP, with effects briefed by number and name from The Motion Index catalogue. That is not the same as the default output. The default single self-contained file ships CSS transitions, because a no-external-JS file is this skill's output contract and because adding a dependency for an effect CSS already expresses cleanly is a bad trade. Reach for GSAP when the motion genuinely exceeds what CSS can express, or when scaffolding a real multi-file project.
+
+**Never scrollreveal.** GPL-3.0 plus a paid commercial licence, which makes it unusable on closed-source client work however convenient the API looks. This holds whatever the engine.
+
+**One authored focal moment per page, not a reveal on every section.** The focal moment has to come from this brand and this surface. A generic fade-and-rise, a hover lift, a parallax layer or a scroll reveal is not a focal moment, it is a default with the serial numbers filed off. If removing an animation would cost nothing but decoration, it never earned its place.
+
+**Timing.**
+
+| Duration | What it is for |
+|---|---|
+| 100 to 150ms | Immediate feedback - a press, a toggle, a hover colour |
+| 150 to 300ms | Routine state change |
+| 300 to 500ms | Layout shift or an overlay opening |
+| 500 to 800ms | An authored entrance, and only one of them |
+
+Exits run faster than entrances.
+
+**Easing.** `cubic-bezier(0.16, 1, 0.3, 1)` for arrivals. Bounce and elastic are banned by reflex; they read as generated.
+
+**Bans.**
+
+- Never animate a layout-driving property (width, height, top, left, margin). Transform and opacity only.
+- Content stays visible at rest, so a script that fails to run cannot hide the page.
+- Stagger only when a list genuinely arrives as a list, and cap the total delay.
+- `will-change` only for the duration of a known animation.
+- `prefers-reduced-motion` renders everything settled, not merely reduced.
 
 ---
 
@@ -85,6 +213,7 @@ A **single self-contained HTML file** (default `~/Desktop/<topic>-slides.html`):
 - [ ] **#19** Headline + key visual top-left band.
 - [ ] **#20** One mode per deck (presenter OR document) — never mix.
 - [ ] **#21 (default ON)** Brand logo on every slide unless opted out.
+- [ ] **House style (fork)** No em or en dashes, straight quotes, no colons in slide titles, locale-correct spelling.
 
 ---
 
@@ -136,6 +265,8 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - [ ] **#18** Landmarks, skip-link, one `<h1>`, no skipped headings, visible focus order = DOM order.
 - [ ] **#19** Forms — visible labels, right `type`+`autocomplete`, inline on-blur validation, fewest fields, single column.
 - [ ] **#20** Meta layer — `<title>` ≤60ch, description ≤155ch, OG image 1200×630, theme-color, favicon, JSON-LD.
+- [ ] **House style (fork)** No em or en dashes, straight quotes, no colons in headings, locale-correct spelling. Applies to the meta layer too.
+- [ ] **Motion (fork)** One authored focal moment, timing table respected, exits faster than entrances, `cubic-bezier(0.16, 1, 0.3, 1)` on arrivals, no bounce or elastic, content visible at rest, never scrollreveal.
 
 ---
 
@@ -177,6 +308,6 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - `principles/web-principles.md` — the 20 **web** rules + research, with numeric thresholds.
 - `lib/extract-brand.md` — the Firecrawl brand-extraction recipe (feeds both paths).
 - `brands/<name>/brand-style.md` — pre-built brand systems (72+).
-- `brands/_template.md` — blank template for new brands.
+- `brands/_template.md` — upstream's short blank template. Superseded for new files by **New brand files (fork addition)** above; kept because three existing brands are written to it.
 
 When in doubt, **read the principles file for the current medium**. It's the source of truth.
