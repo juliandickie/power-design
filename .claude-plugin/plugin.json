@@ -1,7 +1,7 @@
 {
   "name": "power-design",
-  "version": "0.1.0",
-  "description": "Decks and websites that do not look AI-made. Brand DNA (extracted live from any URL via Firecrawl, or picked from 72+ pre-built brand systems) combined with codified design principles - 20 research-backed rules for slides and 20 for the web, with numeric thresholds.",
+  "version": "0.2.0",
+  "description": "Decks and websites that do not look AI-made. Brand DNA (extracted live from any URL via Firecrawl, or picked from 74 pre-built brand systems) combined with codified design principles - 20 research-backed rules for slides and 20 for the web, with numeric thresholds. This fork adds a house style guard on generated copy, motion routed to GSAP and The Motion Index, a stated positioning boundary, and Pro Marketing client brand systems.",
   "author": {
     "name": "Jack Roberts",
     "url": "https://github.com/ItsssssJack"
