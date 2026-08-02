@@ -44,7 +44,10 @@ The token block is a fork improvement with no upstream equivalent. Upstream's re
 
 The shipping skill's **New brand files (fork addition)** section carries the schema, so the Firecrawl extractor writes new brands to this shape rather than to the short template. `lib/extract-brand.md` is upstream's and still points at `brands/_template.md`; it stays pristine and is overridden from the skill rather than edited. The 72 files that arrived with upstream are not being converted.
 
-**Note for the next sync.** That change edits an upstream line rather than only appending, the first in the fork to do so. The ledger currently reads one `<` against 132 `>`, and that single line (the "Save it as `brand-style.md`" sentence in the shared brand step) is the only place a future upstream merge needs a real decision instead of a clean re-append.
+**Note for the next sync.** That change edits upstream lines rather than only appending, the first in the fork to do so. The ledger reads two `<` against 133 `>`, and those two lines are the only places a future upstream merge needs a real decision instead of a clean re-append:
+
+- `43c58` - the "Save it as `brand-style.md`" sentence in the shared brand step, repointed from `brands/_template.md` to the fork's schema section.
+- `180c311` - the `brands/_template.md` entry in "Files in this skill", relabelled as upstream's short template and marked superseded for new files.
 
 ### Next candidates
 
