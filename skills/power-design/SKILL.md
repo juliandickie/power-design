@@ -46,6 +46,22 @@ The same six values (background, foreground, accent, display font, radius, one v
 
 ---
 
+## House style guard (fork addition)
+
+Governs every word this skill emits into a deck or a page - headlines, body copy, captions, labels, button text, alt text, meta descriptions, JSON-LD strings. It does not govern the skill's own prose above.
+
+**Punctuation.** Never emit an em dash or an en dash. Use a comma, a parenthesis, a hyphen for a compound term, or two sentences. Straight quotes and straight apostrophes only, never curly. No colons in headings or slide titles; separate segments with " - ". Strip trademark, registered and copyright glyphs, and normalise typographic ligatures to plain ASCII.
+
+**Spelling.** Read it from the `locale` field in the chosen `brands/<name>/brand-style.md`:
+
+- `en-AU` - Australian English. Every Pro Marketing client brand defaults here.
+- `en-US` - US English. iDD content is US English even for AU and NZ readers, the single exception being a course written specifically for an AU or NZ market.
+- No `locale` field - ask once, then hold the answer for the rest of the session.
+
+**Check it on the emitted HTML before saving, not after the client finds it.** These are the violations a reader notices on sight, unlike a spacing error, and a single curly apostrophe pasted in from a source page is enough to fail the pass. The two rulebooks govern the design; this governs the copy inside it.
+
+---
+
 # Path A — Slides
 
 ### Q — What's the deck about?
@@ -85,6 +101,7 @@ A **single self-contained HTML file** (default `~/Desktop/<topic>-slides.html`):
 - [ ] **#19** Headline + key visual top-left band.
 - [ ] **#20** One mode per deck (presenter OR document) — never mix.
 - [ ] **#21 (default ON)** Brand logo on every slide unless opted out.
+- [ ] **House style (fork)** No em or en dashes, straight quotes, no colons in slide titles, locale-correct spelling.
 
 ---
 
@@ -136,6 +153,7 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - [ ] **#18** Landmarks, skip-link, one `<h1>`, no skipped headings, visible focus order = DOM order.
 - [ ] **#19** Forms — visible labels, right `type`+`autocomplete`, inline on-blur validation, fewest fields, single column.
 - [ ] **#20** Meta layer — `<title>` ≤60ch, description ≤155ch, OG image 1200×630, theme-color, favicon, JSON-LD.
+- [ ] **House style (fork)** No em or en dashes, straight quotes, no colons in headings, locale-correct spelling. Applies to the meta layer too.
 
 ---
 
