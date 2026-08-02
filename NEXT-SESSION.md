@@ -1,39 +1,41 @@
-# Next session - power-design customisation build (QUEUED)
+# Next session - power-design fork
 
-Julian queued this build on 2026-07-29. State verified as of that date; the session that created the fork also wrote this.
-
-## State
-
-- This repo = juliandickie/power-design, main at bb2c5c9, PUSHED, clean. Upstream remote wired to ItsssssJack/power-design (fork == upstream 26d1492 plus the packaging and kickoff commits).
-- Plugin packaging DONE and validated - `.claude-plugin/plugin.json` (version 0.1.0, FORK-OWNED because upstream carries no version anywhere), `skills/power-design/SKILL.md` (the shipping copy, currently byte-identical to root `SKILL.md`), and the asset symlinks (`principles`, `brands`, `lib`) verified resolving and recorded in git as mode 120000.
-- LISTED in the outfit and ai-loadout catalogs (pushed, cache-verified, installable). Deliberately NOT installed on Julian's machine - see the positioning note below.
-- The customisation ledger, `diff SKILL.md skills/power-design/SKILL.md`, is EMPTY. Pure upstream. That diff is the whole point of the fork layout; it stays the standing record of what is ours.
+Nothing is queued and nothing is in flight. The 0.2.0 customisation build shipped on 2026-08-02 and landed completely. This file exists so a fresh session can pick the repo up cold; the open items below are candidates, not a queue.
 
 ## Read before touching anything
 
 1. `CLAUDE.md` here - the fork contract. Upstream files are NEVER edited. All customisation goes in `skills/power-design/SKILL.md` or in NEW files under `brands/`.
-2. This file.
-3. `~/code/repos/CLAUDE.md`, the `ItsssssJack/power-design` entry - the review verdict and the licence position.
-4. `pro-marketing-web-agency/docs/superpowers/specs/2026-07-29-design-toolchain-analysis.md` - why this skill sits where it does in the four-layer split, and the correction that its brand library is a restructured, NON-spec-compliant copy of VoltAgent/awesome-design-md.
+2. `SESSION-HANDOFF-2026-08-02.md` - what shipped in 0.2.0, the decisions behind it, and the footguns.
+3. This file.
+4. `~/code/repos/CLAUDE.md`, the `ItsssssJack/power-design` entry - the review verdict and the licence position.
+5. `pro-marketing-web-agency/docs/superpowers/specs/2026-07-29-design-toolchain-analysis.md` - why this skill sits where it does in the four-layer split. **Note one correction**, recorded in `CLAUDE.md` - its claim that the brand library is uniformly a non-spec nine-section format is true of 27 of 72 files; 42 already follow canonical DESIGN.md order.
 
-## The work, in priority order
+## State
 
-**1. Ascot Real Estate brand system** as `brands/ascot-real-estate/brand-style.md`, from `clients/ascot-re-2026/site/DESIGN.md` in the pro-marketing-web-agency repo, using `brands/_template.md` as the schema. A NEW file, so zero upstream conflict. Tokens are already exact - primary `#9E1B2E`, surface `#F7F4EF`, on-surface `#211F1B`, secondary `#1B1A17`, tertiary `#E3DCCF`, outline-variant `#DAD4C8`; Newsreader display serif over Rubik.
+**Verified 2026-08-02.** Verify it again with `git log` rather than trusting this prose.
 
-**2. iDD brand system** as `brands/idd/brand-style.md` from the recorded tokens - `#052648` navy, `#1EB5BD` teal, `#EFC319` star gold, Montserrat.
+- `main` at `bbd8f6c`, in sync with `origin/main`. Working tree clean. No other branches, local or remote.
+- Tagged `v0.2.0`, released at https://github.com/juliandickie/power-design/releases/tag/v0.2.0. PR #1 merged.
+- Upstream remote wired to `ItsssssJack/power-design`, last merged against `26d1492`.
+- Customisation ledger, `diff SKILL.md skills/power-design/SKILL.md`, is **133 added, 2 modified**. It is no longer empty; that diff is the standing record of what is ours.
+- `claude plugin validate .` passes with one expected warning about root `CLAUDE.md`. Do not try to fix that warning.
 
-**3. House style guard** in the shipping SKILL.md copy - never emit em or en dashes in generated copy, straight quotes only, no colons in headings, AU English for Pro Marketing clients and US English for iDD. This is the first real ledger entry, so quote the diff in the commit message.
+## Candidates, ranked
 
-**4. Motion routed to the house engine** in the shipping copy - GSAP and The Motion Index catalogue, never scrollreveal (GPL-3.0 plus a paid commercial licence, unusable on closed-source client work). Worth folding in the timing discipline from impeccable's `animate.md` while here - one authored focal moment rather than a reveal on every section, 100-150ms feedback, 150-300ms routine, 300-500ms layout, 500-800ms an authored entrance, exit faster than entrance, `cubic-bezier(0.16, 1, 0.3, 1)` for arrivals, bounce and elastic banned by reflex.
+1. **Refresh the two marketplace catalog descriptions.** `~/code/outfit/.claude-plugin/marketplace.json` and `~/code/ai-loadout/.claude-plugin/marketplace.json`, line 415 in each. Both still say "72+ pre-built brand systems ... tracking upstream", which undersells 0.2.0. They source by git URL with no version pin, so this is accuracy rather than distribution. Separate repos, needs its own go from Julian.
+2. **Decide what, if anything, goes upstream.** House style guard and motion doctrine are general-purpose. Positioning boundary and client brands are not. The orphaned `{colors.x}` references in `brands/apple` and its siblings are an upstream defect worth reporting either way.
+3. **Fold `power-design-web` into a `references/` file** in the shipping skill.
+4. **Add more client brand systems** as new `brands/<slug>/brand-style.md` files, to the schema in the shipping skill's **New brand files** section.
 
-**5. Positioning boundary** stated in the shipping copy. In this stack power-design is the DECK and BRAND-EXTRACTION specialist. Everyday web design voice stays with `frontend-design` (taste) plus `ui-ux-pro-max` (knowledge); `impeccable` is deterministic enforcement. Three overlapping design voices arguing is the failure mode this boundary exists to prevent, and it is why the plugin is listed but not installed locally.
+## Standing rules
 
-Each customisation is its OWN commit with the ledger diff quoted. Bump the plugin version to 0.2.0 at the end.
-
-## Consider, do not assume
-
-The brand library here was restructured out of `VoltAgent/awesome-design-md` into a bespoke nine-section numbered format that is NOT DESIGN.md-spec compliant, so the design.md linter cannot validate it. The originals upstream ARE spec-format. If the goal is brand references rather than this skill's deck routing, awesome-design-md is the better source. Worth deciding deliberately before adding more brands in the non-spec shape.
+- Upstream files are pristine and stay that way - root `SKILL.md`, `principles/`, `lib/`, `README.md`, `LICENSE`, `.gitignore`, and the 72 upstream `brands/*` entries. Verify with `git diff 26d1492 HEAD -- <paths>`; it must come back empty.
+- House formatting applies to fork-authored files and fork-added lines only - no em or en dashes, straight quotes, no colons in headings. Upstream lines keep upstream's style.
+- Every `gh` command in this repo needs `-R juliandickie/power-design`. It is a fork with no default repo set, so `gh` otherwise resolves to `ItsssssJack/power-design`.
+- Verify against the rendered artifact, never a status line. For the symlinks that means reading a file through the link, not checking the link exists.
+- Never push unasked. Commit, push, merge, tag are separate mid-session actions, each needing an explicit go.
+- Subagent fan-outs run on Sonnet; judgement and final QA stay in the main session.
 
 ## Kickoff prompt
 
-Working directory `/Users/juliandickie/code/power-design` (Julian's fork, main, its own repo, in sync with origin). READ FIRST, in the order listed under "Read before touching anything" above, and treat those over any assumption. Then build the customisations in the priority order given, each as its own commit quoting the ledger diff (`diff SKILL.md skills/power-design/SKILL.md`), finishing with a version bump to 0.2.0. Do NOT edit any upstream file - root `SKILL.md`, `principles/`, `lib/` and the existing `brands/*` entries are upstream's and must stay pristine so future merges never conflict. Before calling anything done, run `claude plugin validate .` and confirm the three symlinks still resolve. Never push unasked. House formatting rules (no em or en dashes, straight quotes, no colons in headings) apply to fork-authored files only; upstream files keep upstream's style.
+Working directory `/Users/juliandickie/code/power-design` (Julian's fork of ItsssssJack/power-design, its own repo, `main` at `bbd8f6c`, clean and in sync with origin, tagged `v0.2.0`). READ FIRST, in the order listed under "Read before touching anything" in `NEXT-SESSION.md`, and treat those over any assumption - note especially the recorded correction to the design-toolchain analysis about the brand library's format. The 0.2.0 build is DONE, merged, tagged and released; do not rebuild it, and do not re-audit what `SESSION-HANDOFF-2026-08-02.md` marks as verified. Nothing is in flight and there is no other session's WIP here. Pick work from the ranked candidates in `NEXT-SESSION.md`, confirming with me first, since items 1 and 2 touch other repos or a third party's repo and need their own go. Do NOT edit any upstream file - root `SKILL.md`, `principles/`, `lib/` and the 72 existing `brands/*` entries must stay pristine so future merges never conflict; verify with `git diff 26d1492 HEAD` and expect empty. House formatting rules (no em or en dashes, straight quotes, no colons in headings) apply to fork-authored files and fork-added lines only. Every `gh` command needs `-R juliandickie/power-design` or it resolves to upstream. Run `claude plugin validate .` and confirm the three symlinks resolve before calling anything done. Never push unasked.
