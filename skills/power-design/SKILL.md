@@ -55,9 +55,73 @@ Use the `Firecrawl` MCP server (or `firecrawl_scrape`) with:
 ```
 formats: ["branding", "screenshot", "rawHtml", "links"]
 ```
-The `branding` format returns structured JSON with `colors`, `fonts`, `typography`, `components`, `images.logo`, `personality`. Save it as `brand-style.md` in `brands/<slug>/` using `brands/_template.md` as the schema. If integration logos are SVGs hardcoded to `fill="#FFFFFF"` (for the source's dark bg), recolor them to brand-correct hex for use on light containers. Full recipe: `lib/extract-brand.md`.
+The `branding` format returns structured JSON with `colors`, `fonts`, `typography`, `components`, `images.logo`, `personality`. Save it as `brand-style.md` in `brands/<slug>/` using the schema in **New brand files** below. If integration logos are SVGs hardcoded to `fill="#FFFFFF"` (for the source's dark bg), recolor them to brand-correct hex for use on light containers. Full recipe: `lib/extract-brand.md`.
 
 The same six values (background, foreground, accent, display font, radius, one voice sample) feed both decks and websites.
+
+---
+
+## New brand files (fork addition)
+
+Supersedes the "Convert it into a `brand-style.md` file" step in `lib/extract-brand.md`, which points at `brands/_template.md`. That recipe file is upstream's and is not edited here, so this section is the override. Everything else in the recipe - the scrape call, the white-fill SVG fix, the fast-scan table - still stands.
+
+**Frontmatter.** Identity, then a machine-readable token block:
+
+```yaml
+---
+brand: [Name]
+slug: [slug]
+website: https://[domain]
+source: [where the values came from]
+extracted_via: Firecrawl | editorial
+locale: en-AU | en-US
+colors:
+  primary: "#______"
+  on-primary: "#______"
+  surface: "#______"
+  on-surface: "#______"
+  accent: "#______"
+typography:
+  display:
+    fontFamily: "'[Font]', [fallback]"
+    fontSize: __px
+    fontWeight: ___
+    lineHeight: ___
+  body:
+    fontFamily: "'[Font]', [fallback]"
+    fontSize: __px
+    fontWeight: ___
+    lineHeight: ___
+rounded:
+  default: __px
+spacing:
+  md: __px
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    rounded: "{rounded.default}"
+---
+```
+
+Carry whatever roles the brand actually has; the keys above are the floor, not the ceiling. Prose below the frontmatter references tokens as `{colors.primary}`, `{typography.display}`, `{components.card}`, and **every reference must resolve to a key that exists**.
+
+**Sections, in this order.** The canonical eight first:
+
+Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts
+
+then extensions after them, as the brand needs - Icons, Motion, Responsive Behavior, Iteration Guide, Known Gaps, Reference.
+
+**Rules.**
+
+- Never repeat a section heading. A file with two `## Colors` is rejected outright by the DESIGN.md linter, and one bad generation poisons the whole file.
+- `locale` is required. The house style guard below reads it to pick spelling.
+- State one accent and mean it. If the brand has a second strong colour, give it a role (data, status, decoration) rather than promoting it to a second accent.
+- Where the source genuinely does not reveal a value, say so under Known Gaps rather than inventing a plausible one. A fabricated type ramp is worse than an absent one, because everything downstream treats a brand file as authority.
+
+**Worked examples.** `brands/ascot-real-estate/brand-style.md` and `brands/idd/brand-style.md` are built to this schema and are the reference.
+
+The 72 brand files that arrived with upstream use three older shapes and are not being converted. Match this shape when writing a new file; read the existing ones as they are.
 
 ---
 
@@ -244,6 +308,6 @@ If they want a real project (multi-file, a framework, shadcn/Tailwind), scaffold
 - `principles/web-principles.md` — the 20 **web** rules + research, with numeric thresholds.
 - `lib/extract-brand.md` — the Firecrawl brand-extraction recipe (feeds both paths).
 - `brands/<name>/brand-style.md` — pre-built brand systems (72+).
-- `brands/_template.md` — blank template for new brands.
+- `brands/_template.md` — upstream's short blank template. Superseded for new files by **New brand files (fork addition)** above; kept because three existing brands are written to it.
 
 When in doubt, **read the principles file for the current medium**. It's the source of truth.
