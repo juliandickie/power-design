@@ -15,6 +15,21 @@ Your job: compose **HTML** — a deck or a website — that satisfies the brand 
 
 ---
 
+## Where this skill sits (fork addition)
+
+Read this before Step 0. In this stack the skill is the **deck and brand-extraction specialist**, and that boundary exists because several installed tools cover overlapping design ground. Three design voices arguing on the same page is a worse outcome than any one of them being slightly wrong.
+
+- **This skill** owns presentation decks, and owns brand DNA - extracting it from a live URL, or loading and applying a system from `brands/`. Both are genuine gaps elsewhere in the stack.
+- **frontend-design** owns taste on everyday web pages.
+- **ui-ux-pro-max** owns design knowledge, styles and palettes.
+- **impeccable** owns deterministic enforcement, running its detector rules with no LLM in the loop.
+
+So the routing is: a deck, or a job that starts from a brand system to extract or apply, means proceed. An everyday web page with no brand-extraction step in it means say so and hand off, rather than opening a third opinion on the same markup.
+
+This does not retire Path B. Path B is right when the page genuinely starts from a brand system this skill just extracted or loaded, which is exactly the cold-start case on a new client. It is the wrong door for general page design.
+
+---
+
 ## Step 0 — Deck or website?
 
 Before anything else, establish the medium. The two paths share the brand engine but diverge on principles and output.
