@@ -14,18 +14,21 @@ Nothing is queued and nothing is in flight. The 0.2.0 customisation build shippe
 
 **Verified 2026-08-02.** Verify it again with `git log` rather than trusting this prose.
 
-- `main` at `bbd8f6c`, in sync with `origin/main`. Working tree clean. No other branches, local or remote.
-- Tagged `v0.2.0`, released at https://github.com/juliandickie/power-design/releases/tag/v0.2.0. PR #1 merged.
+- `main` is in sync with `origin/main`, working tree clean, no other branches local or remote. **Read the HEAD sha from `git log`, it is not quoted here on purpose** - handoff commits land after the release, so any sha written into this file is stale the moment it is committed. The stable anchors below are the ones to trust.
+- Tagged `v0.2.0` at `bbd8f6c`, released at https://github.com/juliandickie/power-design/releases/tag/v0.2.0. PR #1 merged. `main` sits a little ahead of the tag; that is the handoff documentation, not unreleased code.
 - Upstream remote wired to `ItsssssJack/power-design`, last merged against `26d1492`.
 - Customisation ledger, `diff SKILL.md skills/power-design/SKILL.md`, is **133 added, 2 modified**. It is no longer empty; that diff is the standing record of what is ours.
 - `claude plugin validate .` passes with one expected warning about root `CLAUDE.md`. Do not try to fix that warning.
 
+## Already done, do not redo
+
+**The two marketplace catalog descriptions are current.** `~/code/outfit` (`49842d1`) and `~/code/ai-loadout` (`332ffe7`), both pushed 2026-08-02 and verified live via the GitHub contents API. They now read 74 brands and name the fork's additions. Both entries are byte-identical to each other, which is how they have been maintained; keep them that way if either changes again.
+
 ## Candidates, ranked
 
-1. **Refresh the two marketplace catalog descriptions.** `~/code/outfit/.claude-plugin/marketplace.json` and `~/code/ai-loadout/.claude-plugin/marketplace.json`, line 415 in each. Both still say "72+ pre-built brand systems ... tracking upstream", which undersells 0.2.0. They source by git URL with no version pin, so this is accuracy rather than distribution. Separate repos, needs its own go from Julian.
-2. **Decide what, if anything, goes upstream.** House style guard and motion doctrine are general-purpose. Positioning boundary and client brands are not. The orphaned `{colors.x}` references in `brands/apple` and its siblings are an upstream defect worth reporting either way.
-3. **Fold `power-design-web` into a `references/` file** in the shipping skill.
-4. **Add more client brand systems** as new `brands/<slug>/brand-style.md` files, to the schema in the shipping skill's **New brand files** section.
+1. **Decide what, if anything, goes upstream.** House style guard and motion doctrine are general-purpose. Positioning boundary and client brands are not. The orphaned `{colors.x}` references in `brands/apple` and its siblings are an upstream defect worth reporting either way. Touches a third party's repo, so it needs its own go from Julian.
+2. **Fold `power-design-web` into a `references/` file** in the shipping skill.
+3. **Add more client brand systems** as new `brands/<slug>/brand-style.md` files, to the schema in the shipping skill's **New brand files** section.
 
 ## Standing rules
 
@@ -38,4 +41,4 @@ Nothing is queued and nothing is in flight. The 0.2.0 customisation build shippe
 
 ## Kickoff prompt
 
-Working directory `/Users/juliandickie/code/power-design` (Julian's fork of ItsssssJack/power-design, its own repo, `main` at `bbd8f6c`, clean and in sync with origin, tagged `v0.2.0`). READ FIRST, in the order listed under "Read before touching anything" in `NEXT-SESSION.md`, and treat those over any assumption - note especially the recorded correction to the design-toolchain analysis about the brand library's format. The 0.2.0 build is DONE, merged, tagged and released; do not rebuild it, and do not re-audit what `SESSION-HANDOFF-2026-08-02.md` marks as verified. Nothing is in flight and there is no other session's WIP here. Pick work from the ranked candidates in `NEXT-SESSION.md`, confirming with me first, since items 1 and 2 touch other repos or a third party's repo and need their own go. Do NOT edit any upstream file - root `SKILL.md`, `principles/`, `lib/` and the 72 existing `brands/*` entries must stay pristine so future merges never conflict; verify with `git diff 26d1492 HEAD` and expect empty. House formatting rules (no em or en dashes, straight quotes, no colons in headings) apply to fork-authored files and fork-added lines only. Every `gh` command needs `-R juliandickie/power-design` or it resolves to upstream. Run `claude plugin validate .` and confirm the three symlinks resolve before calling anything done. Never push unasked.
+Working directory `/Users/juliandickie/code/power-design` (Julian's fork of ItsssssJack/power-design, its own repo, on `main`, clean and in sync with origin, tagged `v0.2.0` at `bbd8f6c`; read the current HEAD from `git log` rather than assuming a sha, since the handoff commits land after the tag). READ FIRST, in the order listed under "Read before touching anything" in `NEXT-SESSION.md`, and treat those over any assumption - note especially the recorded correction to the design-toolchain analysis about the brand library's format. The 0.2.0 build is DONE, merged, tagged and released, and the two marketplace catalogs are already updated and pushed; do not rebuild or redo either, and do not re-audit what `SESSION-HANDOFF-2026-08-02.md` marks as verified. Nothing is in flight and there is no other session's WIP here. Pick work from the ranked candidates in `NEXT-SESSION.md`, confirming with me first, since candidate 1 touches a third party's repo and needs its own go. Do NOT edit any upstream file - root `SKILL.md`, `principles/`, `lib/` and the 72 existing `brands/*` entries must stay pristine so future merges never conflict; verify with `git diff 26d1492 HEAD` and expect empty. House formatting rules (no em or en dashes, straight quotes, no colons in headings) apply to fork-authored files and fork-added lines only. Every `gh` command needs `-R juliandickie/power-design` or it resolves to upstream. Run `claude plugin validate .` and confirm the three symlinks resolve before calling anything done. Never push unasked.

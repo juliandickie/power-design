@@ -16,8 +16,8 @@ Repo `/Users/juliandickie/code/power-design`, the only repo touched this session
 
 | Item | Value |
 |---|---|
-| `main` HEAD | `bbd8f6c` Merge pull request #1 |
-| `origin/main` | `bbd8f6c`, in sync |
+| `main` HEAD | ahead of the tag by the handoff commits, in sync with origin. Read the sha from `git log`, not from here - a handoff that quotes its own HEAD is wrong the moment it is committed |
+| Merge commit | `bbd8f6c` Merge pull request #1 |
 | Tag | `v0.2.0` (annotated, object `c4c3378`) pointing at `bbd8f6c`, pushed |
 | PR | [#1](https://github.com/juliandickie/power-design/pull/1), MERGED 2026-08-02 |
 | Release | [v0.2.0](https://github.com/juliandickie/power-design/releases/tag/v0.2.0), published, not a draft |
@@ -59,6 +59,7 @@ The nine commits, in build order - `61e6c7d` Ascot brand, `3c276d7` iDD brand, `
 - On the loose end left after the version bump - "fix the extractor to point at the same shape". Confirmed the extractor should follow the same brand schema as the two new files.
 - On landing - "push it and open the PR and merge and tag and release". Explicit authorisation through release, which is why this session went past the usual mid-session commit gate.
 - Both format questions answered with the recommended option, spec-ordered shape and full token block.
+- On the catalogs - "update the catalog descriptions", then "yes do both" to pushing them and correcting this file. Note the pattern across the session: he names the verbs he wants. "update" did not carry a push, and the push came as a separate go once asked.
 
 ## Recipes and footguns
 
@@ -70,10 +71,11 @@ The nine commits, in build order - `61e6c7d` Ascot brand, `3c276d7` iDD brand, `
 
 ## Open work, ranked
 
-1. **The two marketplace catalogs carry stale descriptions.** `~/code/outfit/.claude-plugin/marketplace.json` and `~/code/ai-loadout/.claude-plugin/marketplace.json` (line 415 in each, both repos clean and in sync) describe power-design as "72+ pre-built brand systems ... packaged as a Claude Code plugin, tracking upstream". It is now 74 brands and carries real customisations. **They source by git URL with no version pin, so 0.2.0 is already live to consumers** - this is description accuracy, not a distribution blocker. Separate repos, so it needs its own go.
-2. **Decide whether to offer anything upstream.** The house style guard and the motion doctrine are general-purpose and would likely be welcome. The positioning boundary and the client brand systems are house-specific and should not be offered. The orphaned `{colors.x}` token references in files like `brands/apple` are a genuine upstream defect worth reporting regardless.
-3. **Fold `power-design-web` into a `references/` file** in the shipping skill, per the sibling-repo note in `CLAUDE.md`.
-4. **Consider `brands/_template.md`.** It is upstream's and stays pristine, but it now describes a shape only 3 of 74 files use, and the skill has to route around it. If more brands get added, the routing note is doing real work and should be checked for clarity.
+~~1. The two marketplace catalogs carry stale descriptions.~~ **DONE later the same session**, on Julian's go. `~/code/outfit` `49842d1` and `~/code/ai-loadout` `332ffe7`, both committed and pushed, and verified live by fetching the file back through the GitHub contents API rather than trusting the push. Both now read 74 brands and name the fork's additions, and the two entries remain byte-identical to each other. `claude plugin validate` passes on both manifests.
+
+1. **Decide whether to offer anything upstream.** The house style guard and the motion doctrine are general-purpose and would likely be welcome. The positioning boundary and the client brand systems are house-specific and should not be offered. The orphaned `{colors.x}` token references in files like `brands/apple` are a genuine upstream defect worth reporting regardless. Touches a third party's repo, so it needs its own go.
+2. **Fold `power-design-web` into a `references/` file** in the shipping skill, per the sibling-repo note in `CLAUDE.md`.
+3. **Consider `brands/_template.md`.** It is upstream's and stays pristine, but it now describes a shape only 3 of 74 files use, and the skill has to route around it. If more brands get added, the routing note is doing real work and should be checked for clarity.
 
 ## Questions for Julian
 
