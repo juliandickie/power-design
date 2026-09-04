@@ -119,7 +119,7 @@ then extensions after them, as the brand needs - Icons, Motion, Responsive Behav
 - State one accent and mean it. If the brand has a second strong colour, give it a role (data, status, decoration) rather than promoting it to a second accent.
 - Where the source genuinely does not reveal a value, say so under Known Gaps rather than inventing a plausible one. A fabricated type ramp is worse than an absent one, because everything downstream treats a brand file as authority.
 
-**Worked examples.** `brands/ascot-real-estate/brand-style.md` and `brands/idd/brand-style.md` are built to this schema and are the reference.
+**Worked examples.** `brands/ascot-real-estate/brand-style.md`, `brands/idd/brand-style.md` and `brands/honour-health/brand-style.md` are built to this schema and are the reference.
 
 The 72 brand files that arrived with upstream use three older shapes and are not being converted. Match this shape when writing a new file; read the existing ones as they are.
 
