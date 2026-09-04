@@ -26,6 +26,8 @@ Upstream carries no version anywhere (no manifest, no tags), so the plugin versi
 4. New upstream brands or principles arrive through the symlinks automatically - review them rather than assuming they fit
 5. Commit the port separately from the merge commit
 
+**Pull requests on this fork always name the repo.** `gh pr create` and `gh pr merge` run inside a fork default to the UPSTREAM parent (ItsssssJack/power-design). On 2026-09-04 a brand-file PR opened there by mistake and was closed within a minute with an apology; the correct form is `gh pr create --repo juliandickie/power-design --base main --head <branch>` and `gh pr merge <n> --repo juliandickie/power-design`. Upstream contributions are a separate decision with their own go (see Next candidates).
+
 ## Delivered customisations (0.2.0, built 2026-08-02 against upstream 26d1492)
 
 All four planned items shipped, plus one follow-on. Four changes live in the shipping copy and show in the ledger diff; the brand systems are new files with zero upstream contact.
